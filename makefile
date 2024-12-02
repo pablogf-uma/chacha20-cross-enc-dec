@@ -1,3 +1,10 @@
+# Detect the Operating System
+ifeq ($(OS),Windows_NT)
+    DEL = cmd /C del /Q
+else
+    DEL = rm -f
+endif
+
 CC = gcc
 CFLAGS = -mavx512f -O3 -Wall -c -Iheaders
 TARGET = chacha20-crossed-enc-dec
@@ -68,6 +75,6 @@ main.o: main.c
 	$(CC) $(CFLAGS) main.c
 
 clean: 
-	cmd /C del /Q $(TARGET) $(OBJS) chacha20-crossed-enc-dec.exe
+	$(DEL) $(TARGET) $(OBJS) chacha20-crossed-enc-dec.exe
 
 .PHONY: clean
